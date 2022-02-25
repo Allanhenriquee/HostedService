@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HostedService.API", "HostedService.API\HostedService.API.csproj", "{7179E978-B9CB-4C1D-A131-34D21D99F48F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HostedService.Infra", "HostedService.Infra\HostedService.Infra.csproj", "{EAC94901-F481-4763-AC9B-2F706E487D00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HostedService.Domain", "HostedService.Domain\HostedService.Domain.csproj", "{96FFBE55-4374-4CFC-9483-021AB3926D27}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7179E978-B9CB-4C1D-A131-34D21D99F48F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7179E978-B9CB-4C1D-A131-34D21D99F48F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7179E978-B9CB-4C1D-A131-34D21D99F48F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7179E978-B9CB-4C1D-A131-34D21D99F48F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAC94901-F481-4763-AC9B-2F706E487D00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAC94901-F481-4763-AC9B-2F706E487D00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAC94901-F481-4763-AC9B-2F706E487D00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAC94901-F481-4763-AC9B-2F706E487D00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96FFBE55-4374-4CFC-9483-021AB3926D27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96FFBE55-4374-4CFC-9483-021AB3926D27}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96FFBE55-4374-4CFC-9483-021AB3926D27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96FFBE55-4374-4CFC-9483-021AB3926D27}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
