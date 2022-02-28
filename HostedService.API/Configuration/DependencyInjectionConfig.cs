@@ -10,10 +10,9 @@ public static class DependencyInjectionConfig
 {
     public static IServiceCollection RegistrarInjecaoDependencia(this IServiceCollection services)
     {
+        //BOLETO
         services.AddHostedService<RegistrarBoletoHostedService>();
-
         services.AddScoped<IBoletoRepository, BoletoRepository>();
-
         services.AddScoped<IBoletoRegistroService, BoletoRegistroService>();
 
         return services;

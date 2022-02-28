@@ -31,17 +31,21 @@ public class RegistrarBoletoHostedService : IHostedService, IDisposable
             var boletoRepository = scope.ServiceProvider.GetRequiredService<IBoletoRepository>();
             var boletoRegistroService = scope.ServiceProvider.GetRequiredService<IBoletoRegistroService>();
 
-            var boletos = boletoRepository.ObterBoletosNaoRegistrados();
+            //MEMORY
+            var boletosInMemory = boletoRepository.PegarTodosBoletosNaoRegistradosEmMemoria();
 
-            foreach (var boleto in boletos)
+            if (boletosInMemory != null)
             {
-                _logger.LogInformation($"Iniciando registro do boleto: {boleto.NumeroBoleto}");
-                boletoRegistroService.Registrar(boleto);
+                foreach (var boleto in boletosInMemory)
+                {
+                    _logger.LogInformation($"Iniciando registro do boleto : {boleto.NumeroBoleto} em nome de {boleto.Nome}" );
 
-                boleto.MarcarComoRegistrado();
+                    boleto.MarcarComoRegistrado();
 
-                boletoRepository.Salvar();
-                _logger.LogInformation($"Finalizando registro do boleto: {boleto.NumeroBoleto}");
+                    boletoRepository.Salvar(boleto);
+
+                    _logger.LogInformation($"Finalizando registro do boleto: {boleto.NumeroBoleto} em nome de {boleto.Nome}");
+                }
             }
         }
     }

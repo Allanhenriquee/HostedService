@@ -1,31 +1,42 @@
 using HostedService.Domain.Entities;
 using HostedService.Domain.Repositories.Interfaces;
+using HostedService.Infra.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace HostedService.Infra.Repositories;
 
 public class BoletoRepository : IBoletoRepository
 {
-    private List<Boleto> _boletos;
+    private readonly HostedServiceDbContext _context;
 
-    public BoletoRepository()
+    public BoletoRepository(HostedServiceDbContext context)
     {
-        _boletos = new List<Boleto>
-        {
-            new Boleto(1, "12345", 100.0m, new Endereco()),
-            new Boleto(2, "12345", 200.0m, new Endereco()),
-            new Boleto(3, "12345", 300.0m, new Endereco()),
-            new Boleto(4, "12345", 400.0m, new Endereco()),
-            new Boleto(5, "12345", 500.0m, new Endereco())
-        };
+        _context = context;
+    }
+    public IEnumerable<Boleto> PegarTodosBoletosEmMemoria()
+    {
+        return _context.Boletos.OrderBy(b => b.DataCriacao);
     }
 
-    public List<Boleto> ObterBoletosNaoRegistrados()
+    public IEnumerable<Boleto> PegarTodosBoletosRegistradosEmMemoria()
     {
-        return _boletos.Where(b => !b.Registrado).ToList();
+        return _context.Boletos.Where(b => b.Registrado).OrderBy(b => b.DataCriacao);
     }
 
-    public void Salvar()
+    public IEnumerable<Boleto> PegarTodosBoletosNaoRegistradosEmMemoria()
     {
-        return;
+        return _context.Boletos.Where(b => !b.Registrado).OrderBy(b => b.DataCriacao);
+    }
+
+    public void Registrar(Boleto boleto)
+    {
+        _context.Entry(boleto).State = EntityState.Modified;
+        _context.SaveChanges();
+    }
+
+    public void Cadastrar(Boleto boleto)
+    {
+        _context.Boletos.Add(boleto);
+        _context.SaveChanges();
     }
 }
