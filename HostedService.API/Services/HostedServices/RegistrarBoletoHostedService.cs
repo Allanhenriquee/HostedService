@@ -1,5 +1,4 @@
 using HostedService.Domain.Repositories.Interfaces;
-using HostedService.Domain.Services;
 
 namespace HostedService.API.Services.HostedServices;
 
@@ -29,7 +28,6 @@ public class RegistrarBoletoHostedService : IHostedService, IDisposable
         using (var scope = ServiceProvider.CreateScope())
         {
             var boletoRepository = scope.ServiceProvider.GetRequiredService<IBoletoRepository>();
-            var boletoRegistroService = scope.ServiceProvider.GetRequiredService<IBoletoRegistroService>();
 
             //MEMORY
             var boletosInMemory = boletoRepository.PegarTodosBoletosNaoRegistradosEmMemoria();
@@ -42,7 +40,7 @@ public class RegistrarBoletoHostedService : IHostedService, IDisposable
 
                     boleto.MarcarComoRegistrado();
 
-                    boletoRepository.Salvar(boleto);
+                    boletoRepository.Registrar(boleto);
 
                     _logger.LogInformation($"Finalizando registro do boleto: {boleto.NumeroBoleto} em nome de {boleto.Nome}");
                 }
