@@ -46,7 +46,7 @@ public class BoletoController : ControllerBase
         Random numRandom = new Random();
 
         var boleto = new Boleto(numRandom.Next(),numRandom.Next().ToString(), nome,100.0m,
-            new Endereco());
+                        new Endereco("Milto Gavetti", "Londrina", "PR", "Rua 17", "987", "89165236"));
         
         _boletoRepository.Cadastrar(boleto);
 

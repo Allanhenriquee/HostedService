@@ -15,17 +15,26 @@ public class BoletoRepository : IBoletoRepository
     }
     public IEnumerable<Boleto> PegarTodosBoletosEmMemoria()
     {
-        return _context.Boletos.OrderBy(b => b.DataCriacao);
+        return _context.Boletos
+            .AsNoTracking()
+            .Include(e => e.Endereco)
+            .ToList();
     }
 
     public IEnumerable<Boleto> PegarTodosBoletosRegistradosEmMemoria()
     {
-        return _context.Boletos.Where(b => b.Registrado).OrderBy(b => b.DataCriacao);
+        return _context.Boletos
+            .Include(e => e.Endereco)
+            .Where(b => b.Registrado)
+            .OrderBy(b => b.DataCriacao);
     }
 
     public IEnumerable<Boleto> PegarTodosBoletosNaoRegistradosEmMemoria()
     {
-        return _context.Boletos.Where(b => !b.Registrado).OrderBy(b => b.DataCriacao);
+        return _context.Boletos
+            .Include(e => e.Endereco)
+            .Where(b => !b.Registrado)
+            .OrderBy(b => b.DataCriacao);
     }
 
     public void Registrar(Boleto boleto)

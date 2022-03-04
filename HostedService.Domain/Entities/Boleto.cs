@@ -1,9 +1,9 @@
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using HostedService.Domain.Entities.Base;
 
 namespace HostedService.Domain.Entities;
 
-public class Boleto
+public class Boleto : Entity
 {
     protected Boleto(){}
     public Boleto(int numeroBoleto, string codigoBarras, string nome, decimal valor, Endereco endereco)
@@ -17,13 +17,10 @@ public class Boleto
         DataCriacao = DateTime.Now;
         Registrado = false;
     }
-
-    [Key]
     public int NumeroBoleto { get; private set; }
     public string CodigoBarras { get; private set; }
     public string Nome { get; set; }
     public decimal Valor { get; private set; }
-    [NotMapped]
     public Endereco Endereco { get; private set; }
     public DateTime DataValidade { get; private set; }
     public DateTime DataCriacao { get; private set; }

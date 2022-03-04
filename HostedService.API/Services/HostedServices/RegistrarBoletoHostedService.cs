@@ -16,8 +16,14 @@ public class RegistrarBoletoHostedService : IHostedService, IDisposable
 
     public Task StartAsync(CancellationToken cancellationToken)
     {
+        //CONSOLE COM COR
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("Serviço de registro de boleto iniciado");
+        Console.ForegroundColor = ConsoleColor.White;
+
+        //LOGGER
         _logger.LogInformation("Serviço de registro iniciado");
-        
+
         _timer = new Timer(Registrar, null, 0, 100000);
 
         return Task.CompletedTask;
@@ -36,12 +42,24 @@ public class RegistrarBoletoHostedService : IHostedService, IDisposable
             {
                 foreach (var boleto in boletosInMemory)
                 {
+                    //CONSOLE COM COR
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"Iniciando registro do boleto : {boleto.NumeroBoleto} em nome de {boleto.Nome}");
+                    Console.ForegroundColor = ConsoleColor.White;
+
+                    //LOGGER
                     _logger.LogInformation($"Iniciando registro do boleto : {boleto.NumeroBoleto} em nome de {boleto.Nome}" );
 
                     boleto.MarcarComoRegistrado();
 
                     boletoRepository.Registrar(boleto);
 
+                    //CONSOLE COM COR
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine($"Finalizando registro do boleto: {boleto.NumeroBoleto} em nome de {boleto.Nome}");
+                    Console.ForegroundColor = ConsoleColor.White;
+
+                    //LOGGER
                     _logger.LogInformation($"Finalizando registro do boleto: {boleto.NumeroBoleto} em nome de {boleto.Nome}");
                 }
             }

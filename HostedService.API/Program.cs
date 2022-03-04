@@ -1,12 +1,12 @@
 using HostedService.API.Configuration;
 using HostedService.Domain.Entities;
 using HostedService.Infra.Context;
-using HostedService.Infra.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
 
 builder.Services.AddDbContext<HostedServiceDbContext>(options => 
     options.UseInMemoryDatabase("Database"));
@@ -43,9 +43,12 @@ void IncluirDadosDeTeste(HostedServiceDbContext context)
     List<Boleto> boleto = new List<Boleto>();
 
     context.Boletos.AddRange(
-        new Boleto(1, "48723", "Allan", 150.00M, new Endereco()),
-                     new Boleto(2, "549879", "Teste", 250.00M, new Endereco()),
-                     new Boleto(3, "798132", "Teste Boleto", 350.00M, new Endereco())
+        new Boleto(1, "48723", "Allan", 150.00M,
+                         new Endereco("Paris", "Londrina", "PR", "Rua 54", "519", "85089125")),
+                     new Boleto(2, "549879", "Teste", 250.00M, 
+                         new Endereco("Vila Yara", "Londrina", "PR", "Rua 3", "123", "89025678")),
+                     new Boleto(3, "798132", "Teste Boleto", 350.00M, 
+                         new Endereco("Jd Planalto", "Londrina", "PR", "Rua 97", "87", "87032569"))
     );
 
     context.SaveChanges();
